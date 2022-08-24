@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct EmojiArtMultiplatformApp: App {
+    @StateObject var  paletteStore = PaletteStore(named: "Default")
+    
     var body: some Scene {
-        DocumentGroup(newDocument: EmojiArtMultiplatformDocument()) { file in
-            ContentView(document: file.$document)
+        DocumentGroup(newDocument: { EmojiArtDocument() }) { config in
+            EmojiArtDocumentView(document: config.document)
+                .environmentObject(paletteStore)
         }
     }
 }
